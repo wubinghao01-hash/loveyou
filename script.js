@@ -9,7 +9,7 @@ const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
-// Click Envelope
+// Click Envelope to open letter
 envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "flex";
@@ -19,33 +19,35 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Logic to move the NO btn randomly within the window
+// Move NO button randomly within the letter window
 noBtn.addEventListener("mouseover", () => {
-    const parent = letter.getBoundingClientRect();
-    const btnRect = noBtn.getBoundingClientRect();
+    const parentRect = letter.getBoundingClientRect();  // letter window
+    const btnRect = noBtn.getBoundingClientRect();      // NO button
 
-    // Calculate max positions to stay inside window
-    const maxX = parent.width - btnRect.width;
-    const maxY = parent.height - btnRect.height;
+    const padding = 10; // optional padding from edges
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+    // Calculate maximum X and Y so button stays inside
+    const maxX = parentRect.width - btnRect.width - padding;
+    const maxY = parentRect.height - btnRect.height - padding;
 
+    // Generate random positions within bounds
+    const randomX = padding + Math.random() * maxX;
+    const randomY = padding + Math.random() * maxY;
+
+    // Apply new position
     noBtn.style.position = "absolute";
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
     noBtn.style.transition = "all 0.2s ease";
 });
 
-// YES is clicked
+// YES button click
 yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeee!";
-
+    title.textContent = "Yippeeeeeeeeeee!";
     catImg.src = "cat_dance.gif";
 
     document.querySelector(".letter-window").classList.add("final");
 
     buttons.style.display = "none";
-
     finalText.style.display = "block";
 });
