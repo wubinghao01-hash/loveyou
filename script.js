@@ -1,4 +1,4 @@
-// Elements 
+// Elements
 const envelope = document.getElementById("envelope-container");
 const letter = document.getElementById("letter-container");
 const noBtn = document.querySelector(".no-btn");
@@ -19,22 +19,25 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Move NO button randomly within the letter window
+// Move NO button within letter window bounds
 noBtn.addEventListener("mouseover", () => {
-    const parentRect = letter.getBoundingClientRect();  // letter window
-    const btnRect = noBtn.getBoundingClientRect();      // NO button
+    const container = document.querySelector(".letter-window");
 
-    const padding = 10; // optional padding from edges
+    // Get container width and height
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
 
-    // Calculate maximum X and Y so button stays inside
-    const maxX = parentRect.width - btnRect.width - padding;
-    const maxY = parentRect.height - btnRect.height - padding;
+    // Get button size
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-    // Generate random positions within bounds
-    const randomX = padding + Math.random() * maxX;
-    const randomY = padding + Math.random() * maxY;
+    const padding = 10; // keep away from edges
 
-    // Apply new position
+    // Calculate random positions inside container
+    const randomX = padding + Math.random() * (containerWidth - btnWidth - 2 * padding);
+    const randomY = padding + Math.random() * (containerHeight - btnHeight - 2 * padding);
+
+    // Apply position
     noBtn.style.position = "absolute";
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
@@ -43,7 +46,7 @@ noBtn.addEventListener("mouseover", () => {
 
 // YES button click
 yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeeeeeeeeee!";
+    title.textContent = "Yippeeee!";
     catImg.src = "cat_dance.gif";
 
     document.querySelector(".letter-window").classList.add("final");
